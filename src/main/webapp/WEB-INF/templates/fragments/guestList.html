@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+    <div class="container" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;margin-top: 120px;">
+
+        <!-- No Guests Available -->
+        <th:block th:if="${allGuests.length == 0}">
+            <div class="text-center">
+                <h2 th:text="${'No guests available currently!'}"></h2>
+            </div>
+        </th:block>
+        
+        <!-- Guests List -->
+        <th:block th:if="${allGuests.length > 0}">
+            <div class="text-center mb-4">
+                <h2 th:text="${'Guests List'}"></h2>
+            </div>
+            
+            <input type="hidden" id="recordsPerPage" th:value="${recordsPerPage}">
+            
+            <table class="table table-bordered table-hover table-striped table-secondary" id="listingTable">
+                <thead class="table-info">
+                    <tr>
+                        <th class="text-center" th:text="${'Guest Id'}"></th>
+                        <th class="text-center" th:text="${'Full Name'}"></th>
+                        <th class="text-center" th:text="${'Email'}"></th>
+                        <th class="text-center" th:text="${'Enabled'}"></th>
+                        <th class="text-center" th:text="${'Actions'}"></th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr th:each="tempUser : ${allUsers}">
+                        <th:block th:each="tempGuest : ${allGuests}">
+                            <th:block th:if="${tempGuest.userId == tempUser.id}">
+                                <td class="text-center" th:text="${tempGuest.guestId}"></td>
+                                <td class="text-center" th:text="${tempUser.firstName + ' ' + tempUser.lastName}"></td>
+                                <td class="text-center" th:text="${tempUser.email}"></td>
+                                <td class="text-center" th:text="${tempUser.enabled == 0 ? 'Inactive' : 'Active'}"></td>
+                                <td class="text-center">
+                                    <button class="btn btn-info" th:onclick="redirectGuestDetails([[${tempGuest.guestId}]])">Details</button>
+                                </td>
+                            </th:block>
+                        </th:block>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="d-flex justify-content-between mt-3">
+                <button class="btn btn-primary" th:onclick="prevPage()" id="btn_prev">Prev</button>
+                <span>Page: <span id="page"></span></span>
+                <button class="btn btn-primary" th:onclick="nextPage()" id="btn_next">Next</button>
+            </div>
+            
+            <script th:src="@{/js/pagination.js}"></script>
+        </th:block>
+        
+        <div class="text-center mt-5">
+            <button class="btn btn-info" th:onclick="redirectHome()">Home Page</button>
+        </div>
+    </div>
+
+</th:block>
+</html>

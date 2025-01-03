@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<th:block th:fragment="fragmentContent">
+    <div class="container" style="margin-top: 120px; margin-bottom: 100px; font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;">
+        <div class="text-center text-uppercase pt-3">
+            <span class="text-danger" th:text="${alert}"></span>
+            <h3 class="mb-3">Login Form</h3>
+            <hr class="mx-auto w-25">
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <form class="p-4 border rounded shadow-sm" method="POST" id="loginForm">
+                    <div class="mb-3">
+                        <label class="form-label" th:text="${'Email'}"></label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="email"  
+                            th:placeholder="${'Email Address'}" 
+                        />     
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label" th:text="${'Password'}"></label>
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            name="password"  
+                            th:placeholder="${'Password'}" 
+                        />     
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-block" type="button" th:text="${'Login'}" th:onclick="login()"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>

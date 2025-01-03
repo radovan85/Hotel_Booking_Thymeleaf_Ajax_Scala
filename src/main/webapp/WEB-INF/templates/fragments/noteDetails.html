@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+    <div class="container" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;margin-top: 120px;">
+        <div class="text-center mb-5">
+            <h2 th:text="${'Note Details'}"></h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Note Id'}"></td>
+                        <td class="text-center align-middle" th:text="${note.noteId}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Subject'}"></td>
+                        <td class="text-center align-middle" th:text="${note.subject}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Created'}"></td>
+                        <td class="text-center align-middle">
+                            <span th:text="${note.createdAtStr}"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Text'}"></td>
+                        <td class="text-center align-middle" th:text="${note.text}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-5">
+            <button class="btn btn-secondary me-3" th:onclick="redirectAllNotes()" th:text="${'Back'}"></button>
+            <button class="btn btn-danger" th:onclick="deleteNote([[${note.noteId}]])" th:text="${'Remove'}"></button>
+        </div>
+    </div>
+</th:block>

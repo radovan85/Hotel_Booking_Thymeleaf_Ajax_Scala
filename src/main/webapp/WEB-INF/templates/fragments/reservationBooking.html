@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+    <div class="container" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;margin-top: 120px;">
+        <div class="text-center text-uppercase">
+            <h3 th:text="${'Reservation Form'}"></h3>
+            <hr class="w-25 mx-auto">
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <div class="card shadow-sm p-4">
+                    <form th:method="POST" th:object="${reservation}" id="bookReservationForm">
+                        <div class="mb-4">
+                            <label for="checkInDateStr" class="form-label" th:text="${'Check In'}"></label>
+                            <input 
+                                type="date" 
+                                class="form-control" 
+                                id="checkInDateStr"
+                                name="checkInDateStr"
+                                th:min="${todayStr}" 
+                                th:max="${maxDateStr}"
+                            /> 
+                            <span class="text-danger" id="checkInDateStrError" 
+                                  th:text="${'Please provide check-in date!'}" 
+                                  style="visibility: hidden">
+                            </span>   
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="numberOfNights" class="form-label" th:text="${'Number Of Nights'}"></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="numberOfNights"
+                                name="numberOfNights"  
+                                th:placeholder="${'Enter Number of Nights'}"
+                                th:onkeydown="return validateNumber(event)"
+                            /> 
+                            <span class="text-danger" id="numberOfNightsError" 
+                                  th:text="${'Minimum 1 Max 30 nights!'}" 
+                                  style="visibility: hidden">
+                            </span>    
+                        </div>                         
+
+                        <div class="text-center">
+                            <button type="button" 
+                                    class="btn btn-info w-100" 
+                                    th:text="${'Submit'}" 
+                                    th:onclick="bookReservation()">
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

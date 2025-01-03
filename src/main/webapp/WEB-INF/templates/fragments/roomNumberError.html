@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+
+	<div class="container"
+		th:style="${'font-family: Rajdhani, sans-serif;color: #12044F;font-weight: 700;margin-top: 100px;margin-bottom: 100px;'}">
+		<div th:align="${'center'}">
+			<h1 th:text="${'Adding Room Failed'}"></h1>
+			<h3 class="mt-3" th:text="${'Room number already exists'}"></h3>
+
+
+
+			<div class="text-center mt-5">
+				<button class="btn btn-secondary border-dark"
+					th:onclick="redirectHome()" th:text="${'Home'}"></button>
+			</div>
+
+
+		</div>
+	</div>
+
+</th:block>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+    <div class="container" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;margin-top: 120px;">
+
+        <!-- No Reservations Message -->
+        <th:block th:if="${allReservations.length == 0}">
+            <div class="text-center">
+                <h2 th:text="${'No reservations currently!'}"></h2>
+            </div>
+        </th:block>
+
+        <!-- Reservations Table -->
+        <th:block th:if="${allReservations.length > 0}">
+            <div class="text-center mb-4">
+                <h2 th:text="${'Reservations List!'}"></h2>
+            </div>
+
+            <input type="hidden" id="recordsPerPage" th:value="${recordsPerPage}">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-secondary" id="listingTable">
+                    <thead class="table-info">
+                        <tr>
+                            <th class="text-center" th:text="${'Reservation Id'}"></th>
+                            <th class="text-center" th:text="${'Category'}"></th>
+                            <th class="text-center" th:text="${'Nights per stay'}"></th>
+                            <th class="text-center" th:text="${'Price'}"></th>
+                            <th class="text-center" th:text="${'Check In'}"></th>
+                            <th class="text-center" th:text="${'Check Out'}"></th>
+                            <th class="text-center" th:text="${'Actions'}"></th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr th:each="tempReservation : ${allReservations}">
+                            <th:block th:each="tempCategory : ${allCategories}">
+                                <th:block th:each="tempRoom : ${allRooms}">
+                                    <th:block th:if="${tempReservation.roomId == tempRoom.roomId}">
+                                        <th:block th:if="${tempCategory.roomCategoryId == tempRoom.roomCategoryId}">
+                                            <td class="text-center align-middle" th:text="${tempReservation.reservationId}"></td>
+                                            <td class="text-center align-middle" th:text="${tempCategory.name}"></td>
+                                            <td class="text-center align-middle" th:text="${tempReservation.numberOfNights}"></td>
+                                            <td class="text-center align-middle">
+                                                <span>&euro;</span>
+                                                <span th:text="${tempReservation.price}"></span>
+                                            </td>
+                                            <td class="text-center align-middle" th:text="${tempReservation.checkInDateStr}"></td>
+                                            <td class="text-center align-middle" th:text="${tempReservation.checkOutDateStr}"></td>
+                                            <td class="text-center align-middle">
+                                                <th:block th:if="${tempReservation.possibleCancel()}">
+                                                    <button class="btn btn-danger" th:text="${'Cancel'}" 
+                                                            th:onclick="deleteReservation([[${tempReservation.reservationId}]])">
+                                                    </button>
+                                                </th:block>
+                                            </td>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-primary" th:onclick="prevPage()" id="btn_prev">Prev</button>
+                <span>Page: <span id="page"></span></span>
+                <button class="btn btn-primary" th:onclick="nextPage()" id="btn_next">Next</button>
+            </div>
+
+            <script th:src="@{/js/pagination.js}"></script>
+        </th:block>
+
+        <!-- Add Reservation Button -->
+        <div class="text-center mt-5">
+            <button class="btn btn-info" 
+                    th:onclick="redirectBookReservation()" 
+                    th:text="${'Add Reservation'}">
+            </button>
+        </div>
+
+    </div>
+</th:block>

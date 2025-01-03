@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+	<th:block th:fragment="fragmentContent">
+	
+	<div class="container" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;margin-top: 120px;">
+	
+		<!-- No rooms available section -->
+		<th:block th:if="${allRooms.length == 0}">
+			<div class="text-center">
+				<h2 class="mb-4" th:text="${'No rooms available currently!'}"></h2>
+				<button class="btn btn-info" 
+					th:onclick="redirectAddRoom()"
+					th:text="${'Add Room'}">
+				</button>
+			</div>
+		</th:block>
+		
+		<!-- Rooms list section -->
+		<th:block th:if="${allRooms.length > 0}">
+			<div class="text-center mb-4">
+				<h2 th:text="${'Rooms List'}"></h2>
+				<button class="btn btn-info" 
+					th:onclick="redirectAddRoom()"
+					th:text="${'Add Room'}">
+				</button>
+			</div>
+			
+			<input type="hidden" id="recordsPerPage" th:value="${recordsPerPage}">
+			<table class="table table-bordered table-hover table-striped table-secondary" id="listingTable">
+				<thead class="table-info">
+					<tr>
+						<th class="text-center" th:text="${'Room Number'}"></th>
+						<th class="text-center" th:text="${'Room Category'}"></th>
+						<th class="text-center" th:text="${'Room Price'}"></th>
+						<th class="text-center" th:text="${'Actions'}"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="tempRoom : ${allRooms}">
+						<th:block th:each="tempCategory : ${allCategories}">
+							<th:block th:if="${tempRoom.roomCategoryId == tempCategory.roomCategoryId}">
+								<td class="text-center" th:text="${tempRoom.roomNumber}"></td>
+								<td class="text-center" th:text="${tempCategory.name}"></td>
+								<td class="text-center">
+									<span>&euro;</span>
+									<span th:text="${tempRoom.price} % 1 == 0 ? ${tempRoom.price} : ${#numbers.formatDecimal(tempRoom.price, 0, 2)}"></span>
+								</td>
+								<td class="text-center">
+									<div class="dropdown">
+										<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+											Actions
+										</button>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<li><a class="dropdown-item" th:onclick="redirectRoomDetails([[${tempRoom.roomId}]])" th:text="${'Details'}"></a></li>
+											<li><a class="dropdown-item" th:onclick="redirectUpdateRoom([[${tempRoom.roomId}]])" th:text="${'Update'}"></a></li>
+											<li><a class="dropdown-item text-danger" th:onclick="deleteRoom([[${tempRoom.roomId}]])" th:text="${'Delete'}"></a></li>
+										</ul>
+									</div>
+								</td>
+							</th:block>
+						</th:block>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div class="d-flex justify-content-between mt-4">
+				<button class="btn btn-secondary" th:onclick="prevPage()" id="btn_prev">Prev</button>
+				<span class="align-self-center">Page: <span id="page"></span></span>
+				<button class="btn btn-secondary" th:onclick="nextPage()" id="btn_next">Next</button>
+			</div>
+		
+			<script th:src="@{/js/pagination.js}"></script>
+		</th:block>
+	
+	</div>
+	
+	</th:block>
+</html>

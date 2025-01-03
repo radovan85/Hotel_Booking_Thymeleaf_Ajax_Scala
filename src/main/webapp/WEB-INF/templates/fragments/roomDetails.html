@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+    <div class="container" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;margin-top: 120px;">
+        <div class="text-center mb-5">
+            <h2 th:text="${'Room Details'}"></h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Room Id'}"></td>
+                        <td class="text-center align-middle" th:text="${room.roomId}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Room Number'}"></td>
+                        <td class="text-center align-middle" th:text="${room.roomNumber}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Cost Per Night'}"></td>
+                        <td class="text-center align-middle">
+                            <span>&euro;</span>
+                            <span th:text="${room.price}"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Category'}"></td>
+                        <td class="text-center align-middle" th:text="${category.name}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Wc'}"></td>
+                        <td class="text-center align-middle">
+                            <span th:if="${category.wc == 0}" class="fas fa-times text-danger"></span>
+                            <span th:if="${category.wc == 1}" class="fas fa-check-square text-success"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Wi-fi'}"></td>
+                        <td class="text-center align-middle">
+                            <span th:if="${category.wifi == 0}" class="fas fa-times text-danger"></span>
+                            <span th:if="${category.wifi == 1}" class="fas fa-check-square text-success"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Tv'}"></td>
+                        <td class="text-center align-middle">
+                            <span th:if="${category.tv == 0}" class="fas fa-times text-danger"></span>
+                            <span th:if="${category.tv == 1}" class="fas fa-check-square text-success"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" th:text="${'Bar'}"></td>
+                        <td class="text-center align-middle">
+                            <span th:if="${category.bar == 0}" class="fas fa-times text-danger"></span>
+                            <span th:if="${category.bar == 1}" class="fas fa-check-square text-success"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-5">
+            <button class="btn btn-info" th:onclick="redirectAllRooms()" th:text="${'All Rooms'}"></button>
+        </div>
+    </div>
+
+</th:block>

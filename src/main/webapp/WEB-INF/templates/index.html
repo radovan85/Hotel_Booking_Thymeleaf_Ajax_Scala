@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<head th:replace="fragments/layout :: head"></head>
+
+<body style="background-color: #f7fbfb;">
+
+	<div th:replace="fragments/layout :: header"></div>
+
+	<div id="axiosLoadedContent"></div>
+
+	<div th:replace="fragments/layout :: footer"></div>
+
+
+
+	<script th:src="@{/js/script.js?newversion}"></script>
+	<script th:src="@{/js/validation.js?newversion}"></script>
+
+
+</body>
+</html>

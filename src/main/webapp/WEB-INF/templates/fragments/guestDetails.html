@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+    <div class="container" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;margin-top: 120px;">
+        <div class="text-center">
+            <th:block sec:authorize="hasAuthority('ADMIN')">
+                <h2 th:text="${'Guest Details'}"></h2>
+            </th:block>
+            
+            <th:block sec:authorize="hasAuthority('ROLE_USER')">
+                <h2 th:text="${'Account Information'}"></h2>
+            </th:block>
+        </div>
+        
+        <table class="table table-bordered table-dark mt-5">
+            <tbody>
+                <tr>
+                    <td class="text-center" th:text="${'Guest Id'}"></td>
+                    <td class="text-center" th:text="${guest.guestId}"></td>
+                </tr>
+                
+                <tr>
+                    <td class="text-center" th:text="${'First Name'}"></td>
+                    <td class="text-center" th:text="${user.firstName}"></td>
+                </tr>
+                
+                <tr>
+                    <td class="text-center" th:text="${'Last Name'}"></td>
+                    <td class="text-center" th:text="${user.lastName}"></td>
+                </tr>
+                
+                <tr>
+                    <td class="text-center" th:text="${'Email'}"></td>
+                    <td class="text-center" th:text="${user.email}"></td>
+                </tr>
+                
+                <tr>
+                    <td class="text-center" th:text="${'Id number'}"></td>
+                    <td class="text-center" th:text="${guest.idNumber}"></td>
+                </tr>
+                
+                <tr>
+                    <td class="text-center" th:text="${'Phone'}"></td>
+                    <td class="text-center" th:text="${guest.phoneNumber}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="d-flex justify-content-center mt-5">
+            <th:block sec:authorize="hasAuthority('ADMIN')">
+                <button class="btn btn-info border-dark me-3"
+                    th:onclick="redirectAllGuests()"
+                    th:text="${'All Guests'}">
+                </button>
+                
+                <button class="btn btn-danger border-dark"
+                    th:onclick="deleteGuest([[${guest.guestId}]])"
+                    th:text="${'Remove Guest'}">
+                </button>
+            </th:block>
+            
+            <th:block sec:authorize="hasAuthority('ROLE_USER')">
+                <button class="btn btn-secondary border-dark" 
+                    th:onclick="redirectHome()"
+                    th:text="${'Home Page'}">
+                </button>    
+            </th:block>
+        </div>
+    </div>
+
+</th:block>
+</html>

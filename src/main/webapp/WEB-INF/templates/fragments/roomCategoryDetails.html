@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+	<th:block th:fragment="fragmentContent">
+	
+		<div class="container" style="margin-bottom: 100px;margin-top: 100px;font-family: Rajdhani, sans-serif;color: #12044F;font-weight: 700;">
+			<div class="container">
+				<div class="text-center mb-5">
+					<h2 th:text="${'Category Details'}"></h2>
+				</div>
+				
+				<table class="table table-bordered table-primary">
+					<tbody>
+						<tr>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Category Id'}">
+							</td>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${roomCategory.roomCategoryId}">
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Category'}">
+							</td>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${roomCategory.name}">
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Wc'}">
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;">
+								<th:block th:if="${roomCategory.wc == 0}">
+									<span class="fas fa-times"></span>
+								</th:block>
+								
+								<th:block th:if="${roomCategory.wc == 1}">
+									<span class="fas fa-check-square"></span>
+								</th:block>
+							</td>
+						</tr>
+								
+						<tr>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Wi-fi'}">
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;">
+								<th:block th:if="${roomCategory.wifi == 0}">
+									<span class="fas fa-times"></span>
+								</th:block>
+								
+								<th:block th:if="${roomCategory.wifi == 1}">
+									<span class="fas fa-check-square"></span>
+								</th:block>
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${'Tv'}">
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;">
+								<th:block th:if="${roomCategory.tv == 0}">
+									<span class="fas fa-times"></span>
+								</th:block>
+								
+								<th:block th:if="${roomCategory.tv == 1}">
+									<span class="fas fa-check-square"></span>
+								</th:block>
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Bar'}">
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;">
+								<th:block th:if="${roomCategory.bar == 0}">
+									<span class="fas fa-times"></span>
+								</th:block>
+								
+								<th:block th:if="${roomCategory.bar == 1}">
+									<span class="fas fa-check-square"></span>
+								</th:block>
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+				
+				<div class="text-center mt-5">
+					<button class="btn btn-info" 
+						th:onclick="redirectAllCategories()"
+						th:text="${'All Categories'}">
+					</button>
+				</div>
+			</div>
+		</div>
+	
+	</th:block>

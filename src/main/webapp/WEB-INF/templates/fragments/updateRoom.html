@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+    <div class="container my-5" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;">
+        <div class="text-center text-uppercase mb-4">
+            <h3 th:text="${'Room Update Form'}"></h3>
+            <hr class="w-50 mx-auto">
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form class="mt-3" th:method="POST" th:object="${room}" id="roomForm">
+                    
+                    <input type="hidden" name="roomId" th:value="${currentRoom.roomId}" />
+                    
+                    <div class="mb-3">
+                        <label for="roomNumber" class="form-label" th:text="${'Room Number'}"></label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="roomNumber"
+                            name="roomNumber"  
+                            th:placeholder="${'Enter Room Number'}"
+                            th:onkeydown="return validateNumber(event)"
+                            th:value="${currentRoom.roomNumber}"
+                        /> 
+                        <span class="text-danger" id="roomNumberError" 
+                            th:text="${'Please provide room number!'}" 
+                            style="visibility: hidden">
+                        </span>
+                    </div>
+                    
+                    <div class="mb-5">
+                        <label for="roomCategory" class="form-label" th:text="${'Room Category'}"></label>
+                        <select class="form-select" id="roomCategory" name="roomCategoryId">
+                            <option th:value="''" th:text="${'Please Select'}"></option>
+                            <option th:each="tempCategory : ${allCategories}" 
+                                th:value="${tempCategory.roomCategoryId}" 
+                                th:text="${tempCategory.name}" 
+                                th:selected="${tempCategory.roomCategoryId == currentRoom.roomCategoryId}">
+                            </option>
+                        </select>
+                        <span class="text-danger" id="roomCategoryError" 
+                            th:text="${'Please provide room category!'}" 
+                            style="visibility: hidden">
+                        </span>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="button" class="btn btn-info" 
+                            th:text="${'Update'}" th:onclick="addRoom()">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</th:block>

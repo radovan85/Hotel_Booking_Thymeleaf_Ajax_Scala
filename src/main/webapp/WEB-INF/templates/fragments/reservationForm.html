@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+    <div class="container" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;margin-top: 120px;">
+        <th:block th:if="${availableRooms.length == 0}">
+            <div class="text-center">
+                <h2 th:text="${'No available rooms for selected period'}"></h2>
+            </div>
+        </th:block>
+
+        <th:block th:if="${availableRooms.length > 0}">
+            <div class="text-center mb-4">
+                <h2 th:text="${'Available rooms'}"></h2>
+            </div>
+
+            <div class="mb-4">
+                <h4 th:text="${'Check-In: ' + checkInDateStr}"></h4>
+                <h4 th:text="${'Check-Out: ' + checkOutDateStr}"></h4>
+            </div>
+
+            <form th:method="POST" th:object="${reservation}" id="reservationForm">
+                <input type="hidden" name="checkInDateStr" th:value="${checkInDateStr}">
+                <input type="hidden" name="checkOutDateStr" th:value="${checkOutDateStr}">
+                <input type="hidden" name="numberOfNights" th:value="${numberOfNights}">
+                <input type="hidden" name="guestId" th:value="${guestId}">
+
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <th:block th:each="tempRoom : ${availableRooms}">
+                        <th:block th:each="tempCategory : ${allCategories}">
+                            <th:block th:if="${tempCategory.roomCategoryId == tempRoom.roomCategoryId}">
+                                <div class="card border-primary">
+                                    <div class="card-body">
+                                        <input type="hidden" name="roomId" th:value="${tempRoom.roomId}">
+
+                                        <h4 class="card-title" th:text="${'Category: ' + tempCategory.name}"></h4>
+
+                                        <ul class="list-unstyled">
+                                            <li th:if="${tempCategory.wc == 1}">
+                                                <i class="fas fa-check-square"></i>
+                                                <span th:text="${'Wc'}"></span>
+                                            </li>
+                                            <li th:if="${tempCategory.wifi == 1}">
+                                                <i class="fas fa-check-square"></i>
+                                                <span th:text="${'Wi-fi'}"></span>
+                                            </li>
+                                            <li th:if="${tempCategory.tv == 1}">
+                                                <i class="fas fa-check-square"></i>
+                                                <span th:text="${'Tv'}"></span>
+                                            </li>
+                                            <li th:if="${tempCategory.bar == 1}">
+                                                <i class="fas fa-check-square"></i>
+                                                <span th:text="${'Bar'}"></span>
+                                            </li>
+                                        </ul>
+
+                                        <h4 class="mt-3">
+                                            <span th:text="${'Cost: '}"></span>
+                                            <span>&euro;</span>
+                                            <span th:text="${tempRoom.price * numberOfNights}"></span>
+                                        </h4>
+
+                                        <div class="d-grid mt-3">
+                                            <button type="button" class="btn btn-primary"
+                                                    th:text="${'Book Reservation'}"
+                                                    th:onclick="addReservation([[${tempRoom.roomId}]])">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </th:block>
+                    </th:block>
+                </div>
+            </form>
+        </th:block>
+    </div>
+</th:block>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+	
+<th:block th:fragment="fragmentContent">
+
+	<div class="container"
+		th:style="${'font-family: Rajdhani, sans-serif;color: #12044F;font-weight: 700;margin-top: 100px;margin-bottom: 100px;'}">
+	
+		<div th:align="${'center'}">
+        	<h1 th:text="${'Registration Completed'}"></h1>
+    	</div>
+        
+        
+    	<div class="text-center mt-5" >
+    		<button class="btn btn-primary border-dark" 
+        		th:onclick="redirectLogin()"
+            	th:text="${'Login Page'}">
+        	</button>
+    	</div>
+	</div>
+        
+</th:block>

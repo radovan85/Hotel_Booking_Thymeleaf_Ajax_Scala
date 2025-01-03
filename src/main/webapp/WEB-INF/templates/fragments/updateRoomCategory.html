@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+	<th:block th:fragment="fragmentContent">
+	
+	<div class="container" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;margin-top: 120px;">
+		<div class="text-center text-uppercase pb-3"> 
+        	<h3>Category Update Form</h3>
+            <hr class="mx-auto" style="width: 50px; border-top: 3px solid #12044F;">
+       	</div>
+            
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+            	<div class="card shadow-sm p-4">
+					<form method="POST" id="roomCategoryForm" th:object="${roomCategory}">
+					
+						<input type="hidden" name="roomCategoryId" th:value="${currentCategory.roomCategoryId}">
+					
+						<div class="mb-3">
+                        	<label class="form-label" th:text="${'Name'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="name"
+                          		name="name"  
+                          		th:placeholder="${'Enter Category Name'}"
+                          		th:value="${currentCategory.name}"
+                          	/> 
+                          	<span class="text-danger" id="nameError" 
+            					th:text="${'Please provide category name!'}" 
+            					style="visibility: hidden">
+            				</span>      
+                    	</div>
+                    	
+                    	<div class="mb-3">
+                        	<label class="form-label" th:text="${'Price'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="price"
+                          		name="price"  
+                          		th:placeholder="${'Enter Price'}"
+                          		th:onkeydown="return validateNumber(event)"
+                          		th:value="${currentCategory.price}"
+                          	/> 
+                          	<span class="text-danger" id="priceError" 
+            					th:text="${'Please provide valid price!'}" 
+            					style="visibility: hidden">
+            				</span>      
+                    	</div>
+                    	
+                    	<div class="mb-3">
+                        	<label class="form-label" th:text="${'Wc'}"></label>
+                          	<select class="form-select" id="wc" name="wc">
+           						<option th:value="''" th:text="${'Please Select'}"></option>
+            					<option th:value="'0'" th:text="${'No'}"></option>
+            					<option th:value="'1'" th:text="${'Yes'}"></option>
+        					</select>
+                          	<span class="text-danger" id="wcError"
+                          		th:text="${'Please select one of the options!'}" 
+            					style="visibility: hidden">
+            				</span>    
+                    	</div>
+                    	
+                    	<div class="mb-3">
+                        	<label class="form-label" th:text="${'Wi-fi'}"></label>
+                          	<select class="form-select" id="wifi" name="wifi">
+           						<option th:value="''" th:text="${'Please Select'}"></option>
+            					<option th:value="'0'" th:text="${'No'}"></option>
+            					<option th:value="'1'" th:text="${'Yes'}"></option>
+        					</select>
+            				<span class="text-danger" id="wifiError" 
+            					th:text="${'Please select one of the options!'}" 
+            					style="visibility: hidden">
+            				</span>   
+                    	</div>
+            
+            			<div class="mb-3">
+                        	<label class="form-label" th:text="${'Tv'}"></label>
+                          	<select class="form-select" id="tv" name="tv">
+           						<option th:value="''" th:text="${'Please Select'}"></option>
+            					<option th:value="'0'" th:text="${'No'}"></option>
+            					<option th:value="'1'" th:text="${'Yes'}"></option>
+        					</select>
+            				<span class="text-danger" id="tvError"
+            					th:text="${'Please select one of the options!'}" 
+            					style="visibility: hidden">
+            				</span>  
+                    	</div>
+                    	
+                    	<div class="mb-5">
+                        	<label class="form-label" th:text="${'Bar'}"></label>
+                          	<select class="form-select" id="bar" name="bar">
+           						<option th:value="''" th:text="${'Please Select'}"></option>
+            					<option th:value="'0'" th:text="${'No'}"></option>
+            					<option th:value="'1'" th:text="${'Yes'}"></option>
+        					</select>
+            				<span class="text-danger" id="barError" 
+            					th:text="${'Please select one of the options!'}" 
+            					style="visibility: hidden">
+            				</span>
+                    	</div>
+             
+            			<div class="text-center">
+    						<button type="button" class="btn btn-info px-4" 
+    							th:text="${'Update'}" th:onclick="addRoomCategory()">
+    						</button>
+    					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</th:block>
+</html>
+

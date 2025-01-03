@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+    <div class="container" style="font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;margin-top: 120px;">
+
+        <!-- Kada nema kategorija -->
+        <th:block th:if="${allCategories.length == 0}">
+            <div class="text-center">
+                <h2 th:text="${'No categories available currently!'}"></h2>
+                <div class="mt-4">
+                    <button class="btn btn-info" th:onclick="redirectAddCategory()" th:text="${'Add Category'}"></button>
+                </div>
+            </div>
+        </th:block>
+
+        <!-- Kada postoje kategorije -->
+        <th:block th:if="${allCategories.length > 0}">
+            <div class="text-center mb-4">
+                <h2 th:text="${'Categories List'}"></h2>
+            </div>
+
+            <div class="d-flex justify-content-end mb-3">
+                <button class="btn btn-info" th:onclick="redirectAddCategory()" th:text="${'Add Category'}"></button>
+            </div>
+
+            <input type="hidden" id="recordsPerPage" th:value="${recordsPerPage}">
+
+            <!-- Tabela kategorija -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped" id="listingTable">
+                    <thead class="table-info">
+                        <tr>
+                            <th class="text-center" th:text="${'Category Id'}"></th>
+                            <th class="text-center" th:text="${'Category'}"></th>
+                            <th class="text-center" th:text="${'Price'}"></th>
+                            <th class="text-center" th:text="${'Actions'}"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="tempCategory : ${allCategories}">
+                            <td class="text-center" th:text="${tempCategory.roomCategoryId}"></td>
+                            <td class="text-center" th:text="${tempCategory.name}"></td>
+                            <td class="text-center">
+                                <span>&euro;</span>
+                                <span th:text="${tempCategory.price} % 1 == 0 ? ${tempCategory.price} :${#numbers.formatDecimal(tempCategory.price, 0, 2)}"></span>
+                            </td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        Actions
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <button class="dropdown-item" th:onclick="redirectCategoryDetails([[${tempCategory.roomCategoryId}]])" th:text="${'Details'}"></button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item" th:onclick="redirectUpdateCategory([[${tempCategory.roomCategoryId}]])" th:text="${'Update'}"></button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item text-danger" th:onclick="deleteCategory([[${tempCategory.roomCategoryId}]])" th:text="${'Delete'}"></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginacija -->
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-outline-primary me-2" th:onclick="prevPage()" id="btn_prev">Prev</button>
+                <span id="page" class="align-self-center"></span>
+                <button class="btn btn-outline-primary ms-2" th:onclick="nextPage()" id="btn_next">Next</button>
+            </div>
+
+            <script th:src="@{/js/pagination.js}"></script>
+        </th:block>
+    </div>
+
+</th:block>

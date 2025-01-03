@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+	<div class="container" 
+		style="margin-top: 120px; margin-bottom: 100px; font-family: Rajdhani, sans-serif; color: #12044F; font-weight: 700;">
+		
+		<div class="text-center text-uppercase py-3"> 
+        	<h3 th:text="${'Registration Form'}"></h3>
+            <hr>
+       	</div>
+            
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+            	<div class="card shadow-sm">
+    				<div class="card-body">
+    					<form th:method="POST" th:object="${registerForm}" id="registrationForm">              
+                			<div class="mb-3">
+                        		<label class="form-label" th:text="${'First Name'}"></label>
+                          		<input 
+                          			type="text" 
+                          			class="form-control" 
+                          			id="firstName"
+                          			th:field="*{user.firstName}"  
+                          			th:placeholder="${'Enter First Name'}"
+                          		/> 
+                          		<span class="text-danger small" id="firstNameError"
+                          			  th:text="${'Not empty!Max 30 letters allowed!'}" 
+            						  style="visibility: hidden">
+            					</span>    
+                    		</div>
+                    	
+                    		<div class="mb-3">
+                        		<label class="form-label" th:text="${'Last Name'}"></label>
+                          		<input 
+                          			type="text" 
+                          			class="form-control" 
+                          			id="lastName"
+                          			th:field="*{user.lastName}"  
+                          			th:placeholder="${'Enter Last Name'}"
+                          		/> 
+                          		<span class="text-danger small" id="lastNameError"
+                          			  th:text="${'Not empty!Max 30 letters allowed!'}" 
+            						  style="visibility: hidden">
+            					</span>    
+                    		</div>
+                    	
+                    		<div class="mb-3">
+                        		<label class="form-label" th:text="${'Email'}"></label>
+                          		<input 
+                          			type="email" 
+                          			class="form-control" 
+                          			id="email"
+                          			th:field="*{user.email}"  
+                          			th:placeholder="${'Enter Email Address'}"
+                          		/> 
+                          		<span class="text-danger small" id="emailError" 
+                          			  th:text="${'Please provide valid email! Max 40 letters allowed!'}" 
+            						  style="visibility: hidden">
+            					</span>  
+                    		</div>
+                    	
+                    		<div class="mb-3">
+                        		<label class="form-label" th:text="${'Password'}"></label>
+                          		<input 
+                          			type="password" 
+                          			class="form-control" 
+                          			id="password"
+                          			th:field="*{user.password}"  
+                          			th:placeholder="${'Enter Password'}"
+                          		/> 
+                          		<span class="text-danger small" id="passwordError"
+                          			  th:text="${'Please provide password! Min 6 max 30 letters!'}" 
+            						  style="visibility: hidden">
+            					</span>
+                    		</div>
+                    	
+                    		<div class="mb-3">
+                        		<label class="form-label" th:text="${'Confirm Password'}"></label>
+                          		<input 
+                          			type="password" 
+                          			class="form-control" 
+                          			id="confirmpass" 
+                          			th:placeholder="${'Confirm Password'}"
+                          		/> 
+                    		</div>
+				
+							<div class="mb-3">
+                        		<label class="form-label" th:text="${'Id Number'}"></label>
+                          		<input 
+                          			type="text" 
+                          			class="form-control" 
+                          			id="idNumber"
+                          			th:field="*{guest.idNumber}"  
+                          			th:placeholder="${'Enter Id number'}"
+                          			th:onkeypress="return validateNumber(event)" 
+                          		/> 
+                          		<span class="text-danger small" id="idNumberError" 
+                          			  th:text="${'Minimum 6 Max 12 Letters!'}" 
+            						  style="visibility: hidden">
+            					</span>
+                    		</div>
+                    	
+                    		<div class="mb-4">
+                        		<label class="form-label" th:text="${'Phone'}"></label>
+                          		<input 
+                          			type="text" 
+                          			class="form-control" 
+                          			id="phoneNumber"
+                          			th:field="*{guest.phoneNumber}"  
+                          			th:placeholder="${'Enter Phone Number'}"
+                          			th:onkeypress="return validateNumber(event)" 
+                          		/> 
+                          		<span class="text-danger small" id="phoneNumberError" 
+                          			  th:text="${'Minimum 9 Max 15 Letters!'}" 
+            						  style="visibility: hidden">
+            					</span>
+                    		</div>            	            	            	            									           	           	                   								           	          	
+                    
+                			<div class="text-center">
+    							<button type="button" 
+    								class="btn btn-info text-uppercase px-4" 
+    								th:text="${'Register'}" 
+    								th:onclick="registerUser()">
+    							</button>
+    						</div>    
+               			</form>
+                	</div>
+        		</div>
+        	</div>
+    	</div>         
+    </div>
+    
+</th:block>
